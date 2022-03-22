@@ -4,7 +4,7 @@
     <a routerLink="/">Angular Admin</a>
   </h1>
 
-  <ul>
+  <ul *ngIf="auth.isAuth()">
     <li routerLinkActive="active">
       <a [routerLink]="['/admin', 'dashboard']">Главная</a>
     </li>

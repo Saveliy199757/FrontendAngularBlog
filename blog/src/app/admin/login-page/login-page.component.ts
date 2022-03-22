@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router ) { }
+  constructor(public auth: AuthService, private router: Router ) { }
 
   submitted: boolean = false;
 
@@ -21,7 +21,7 @@ export class LoginPageComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log(this.form.errors)
+   // console.log(this.form.errors)
   }
 
   isErrors(fieldName: string, errorName: string): boolean {
@@ -46,6 +46,8 @@ export class LoginPageComponent implements OnInit {
     this.auth.login(user).subscribe(() => {
       this.form.reset()
       this.router.navigate(['/admin', 'dashboard'])
+      this.submitted = false
+    }, () => {
       this.submitted = false
     })
   }
