@@ -1,0 +1,58 @@
+<form class="card" [formGroup]="form" (submit)="submit()">
+  <h2>Войти в панель администратора</h2>
+
+  <div
+    *ngIf="auth.error$ | async as error"
+    class="alert alert-danger">
+    {{error}}
+  </div>
+
+  <div class="alert alert-info" *ngIf="message">
+     {{message}}
+  </div>
+
+  <div
+    class="form-control"
+    [ngClass]="{ invalid: form.get('email')?.touched && form.get('email')?.invalid }"
+  >
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+    <div
+      *ngIf="form.get('email')?.touched && form.get('email')?.invalid"
+      class="validation"
+    >
+    <small *ngIf="isErrors('email', 'email')">
+         Введите коректный email
+    </small>
+      <small *ngIf="isErrors('email', 'required')">
+        Поле email обязательно для заполнения
+      </small>
+
+    </div>
+  </div>
+
+  <div
+    class="form-control"
+    [ngClass]="{invalid: form.get('password')?.touched && form.get('password')?.invalid}"
+  >
+    <label for="password">Пароль:</label>
+    <input id="password" type="password" formControlName="password" >
+    <div
+      class="validation"
+      *ngIf="form.get('password')?.touched && form.get('password')?.invalid"
+    >
+      <small *ngIf="isErrors('password', 'required')">
+        Введите пароль
+      </small>
+      <small *ngIf="isErrors('password', 'minlength')">
+        Пароль должен быть больше 6
+      </small>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="form.invalid || submitted"
+  >Войти</button>
+</form>
